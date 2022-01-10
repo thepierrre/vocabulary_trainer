@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Languages
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "vocab_app/languages.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="page-content">
+        <h1 class="languages-head">Choose a language</h1>
+        <ul class="languages-content">
+            <li>
+                <a href="{% url "language-list" "german" %}">
+                    <img src="static/vocab_app/images/neuschwanstein.jpg"/>
+                    <span class="language-text">German</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "language-list" "spanish" %}">
+                    <img src="static/vocab_app/images/mexico.jpg"/>
+                    <span class="language-text">Spanish</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "language-list" "czech" %}">
+                    <img src="static/vocab_app/images/orloj.jpg"/>
+                    <span class="language-text">Czech</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+{% endblock %}

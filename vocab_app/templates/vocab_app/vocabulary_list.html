@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%}
+    This List Title
+{% endblock %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block content %}
+    <h1>List title</h1>
+    <article>
+        <address>By Piotr</address>
+    </article>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for q in questions %}
+            <div style="display: flex">
+                <label for="{{q.question}}">{{q.question}}</label>
+                {% if q.is_noun %}
+                    <input 
+                        id="{{q.question}}_der" 
+                        type="radio" 
+                        name="{{q.question}}_article" 
+                        value="der"
+                        {% if q.user_answer_article == "der" %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="{{q.question}}_der">der</label>
+                    <input 
+                        id="{{q.question}}_die" 
+                        type="radio" 
+                        name="{{q.question}}_article" 
+                        value="die"
+                        {% if q.user_answer_article == "die" %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="{{q.question}}_die">die</label>
+                    <input 
+                        id="{{q.question}}_das" 
+                        type="radio" 
+                        name="{{q.question}}_article" 
+                        value="das"
+                        {% if q.user_answer_article == "das" %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="{{q.question}}_das">das</label>
+                {% endif %}
+                <input 
+                    id="{{q.question}}" 
+                    type="text" 
+                    name="{{q.question}}" 
+                    value="{{q.user_answer|default_if_none:""}}"
+                >
+                {% if q.correct != None %}
+                    {% if q.correct %}
+                        <span style="color: green">Correct!</span>
+                    {% else %}
+                        <span style="color: red">{{q.article}} {{q.answer}}</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Check answers">
+        {% if result %}
+            <div style="display: flex; flex-direction: column">
+                <h2>Results</h2>
+                <span>Correct: {{ result.correct }}/{{ questions|length }}</span>
+                <span>Percentage: {{ result.percentage }}%</span>
+            </div>
+        {% endif %}
+    </form>
+
+{% endblock %}

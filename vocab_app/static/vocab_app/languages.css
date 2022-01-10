@@ -1,0 +1,36 @@
+.languages-head {
+    margin: 0;
+    padding-top: 60px;
+    text-align: center;
+    font-family: 'Arial';
+    font-size: 60px;
+    color: rgb(53, 53, 53);
+}
+
+.languages-content {
+    margin: 40px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.languages-content a {
+    text-decoration: none;
+    font-size: 25px;
+    font-family: 'Arial';
+    color:rgb(53, 53, 53);
+}
+
+.languages-content > li > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.page-content img {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+}

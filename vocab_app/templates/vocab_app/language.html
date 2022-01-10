@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    German
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "vocab_app/language_list.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="page-content">
+        <h1 class="head">Choose a <strong>{{ language|capfirst }}</strong> list</h1>
+        <ul class="content">
+            {% for list in lists %}
+                <li>
+                    <a href="{% url "list-detail-page" language list.slug %}">
+                        <span class="text">{{ list.topic_name }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

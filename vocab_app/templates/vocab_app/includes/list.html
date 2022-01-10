@@ -1,0 +1,21 @@
+{% load static %}
+
+<li>
+    <a href="{% url "list-detail-page" "german-animals" %}">
+        <img src="{% static "vocab_app/images/animals.jpg" %}"/>
+        <span class="german-text">Animals</span>
+    </a>
+</li>
+<li>
+    <a href="{% url "list-detail-page" "german-home" %}">
+        <img src="{% static "vocab_app/images/home.jpg" %}"/>
+        <span class="german-text">Home</span>
+    </a>
+</li>
+{% comment %} 
+<li>
+    <a href="">
+        <img src="{% static "vocab_app/images/nature.jpg" %}"/>
+        <span class="german-text">Nature</span>
+    </a>
+</li> {% endcomment %}

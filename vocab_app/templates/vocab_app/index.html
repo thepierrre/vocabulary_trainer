@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%}
+    Vocabulary Trainer
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "vocab_app/index.css" %}"
+{% endblock %}
+
+{% block content %}
+    <div class="page-content">
+        <h1 class="welcome-head" style="color: {{ welcome.color }}">
+            {{ welcome.text }}!
+        </h1>
+        <section class="welcome-content">
+            <p>A free and interesting way to memorise vocabulary faster:
+                choose from a number of ready-to-use word lists or create your own ones.
+                Don't wait and start your adventure with Vocabulise now!
+            </p>
+            <img src="static/vocab_app/images/scrabble.jpg"/>
+        </section>
+        <section class="quick-start">
+            <a href="{% url "languages-page" %}">Quick start</a>
+        </section>
+    </div>
+{% endblock %} 

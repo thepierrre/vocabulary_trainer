@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Volkhov:ital,wght@1,700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static "app.css" %}">
+        {% block css_files %}{% endblock %}
+    </head>
+    <body>
+        <header class="main-navigation">
+            <ul class="navigation-bar">
+                <li class="nav-element"><a class="{% if request.path == "/" %}active-page{% endif %}" href="{% url "starting-page" %}">Home</a></li>
+                <li class="nav-element"><a class="{% if request.path == "/languages" %}active-page{% endif %}" href="{% url "languages-page" %}">Languages</a></li>
+                <li class="nav-element"><a class="{% if request.path == "/about" %}active-page{% endif %}" href="{% url "about" %}">About</a></li>
+                <li class="nav-element"><a class="{% if request.path == "/log-in" %}active-page{% endif %}" href="{% url "log-in" %}">Log in</a></li>
+            </ul>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
