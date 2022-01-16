@@ -1,5 +1,8 @@
+from http import HTTPStatus
+from http.client import HTTPResponse
 import random
 from django.shortcuts import render
+import pandas as pd
 
 from .models import LanguageChoices, QuestionSet, Question
 
@@ -42,6 +45,7 @@ def language_list(request, language):
     )
 
 def vocabulary_list(request, language, list):
+    question_set = QuestionSet.objects.filter(slug=list).first()
     questions = Question.objects.filter(set__slug=list)
     if request.method == 'POST':
         correct = 0
@@ -49,7 +53,7 @@ def vocabulary_list(request, language, list):
         for q in questions:
             q.user_answer = request.POST.get(q.question)
             q.user_answer_article = request.POST.get(f'{q.question}_article')
-            if q.user_answer == q.answer and q.article == q.user_answer_article or q.is_noun == False:
+            if q.user_answer == q.answer and (q.article == q.user_answer_article or q.is_noun == False):
                 q.correct = True
                 correct += 1
             else:
@@ -59,6 +63,7 @@ def vocabulary_list(request, language, list):
             request, 
             "vocab_app/vocabulary_list.html", 
             { 
+                "list_title": question_set.topic_name,
                 "questions": questions,
                 "result": {
                     "correct": correct,
@@ -70,5 +75,42 @@ def vocabulary_list(request, language, list):
         return render(
             request, 
             "vocab_app/vocabulary_list.html", 
-            { "questions": questions }
+            { 
+                "list_title": question_set.topic_name,
+                "questions": questions 
+            }
         )
+
+
+def upload_csv(request, language):
+    if request.method == 'POST':
+        try:
+            csv_file = request.FILES['file']
+            questions = pd.read_csv(csv_file, delimiter=';', na_filter=False).to_dict('index')
+            list_name = request.POST['title']
+            if QuestionSet.objects.filter(topic_name=list_name).count() == 0:
+                new_list = QuestionSet.objects.create(topic_name=list_name, 
+                                                        questions_language=LanguageChoices.ENGLISH, 
+                                                        answer_language=language)
+                for question in questions.values():
+                    question_data = {k: v for k, v in question.items()}
+                    Question.objects.create(set=new_list, **question_data)
+            return render(
+                request, 
+                "vocab_app/language.html", 
+                { "language": language, "lists": QuestionSet.objects.filter(answer_language=language) }
+            )
+        except Exception as e:
+            print(e)
+            return render(
+                request, 
+                "vocab_app/vocabulary_list_csv_form.html", 
+                { "language": language }
+            )
+    return render (
+        request, 
+        "vocab_app/vocabulary_list_csv_form.html", 
+        { "language": language }
+    )
+    
+    

@@ -20,6 +20,11 @@
                     </a>
                 </li>
             {% endfor %}
+            <li>
+                <a  class="gray" href="{% url "language-list-upload" language %}">
+                    <span class="text">Add a new list</span>
+                </a>
+            </li>
         </ul>
     </section>
 {% endblock %}

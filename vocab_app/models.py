@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 
 class LanguageChoices(models.TextChoices):
     ENGLISH = 'english', _('English')
@@ -16,6 +17,10 @@ class QuestionSet(models.Model):
         default=LanguageChoices.ENGLISH
     )
     answer_language = models.CharField(max_length=200, choices=LanguageChoices.choices)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.topic_name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.topic_name} {self.questions_language}-{self.answer_language}'

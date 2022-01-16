@@ -9,14 +9,12 @@
 {% endblock %}
 
 {% block content %}
-    <h1>List title</h1>
-    <article>
-        <address>By Piotr</address>
-    </article>
-    <form action="" method="post">
+    <div style="margin: 0 auto">
+    <h1>{{list_title}}</h1>
+    <form action="" method="post" style="display: flex; flex-direction: column; gap: 8px;">
         {% csrf_token %}
         {% for q in questions %}
-            <div style="display: flex">
+            <div style="display: flex; gap: 5px; justify-content: space-between;">
                 <label for="{{q.question}}">{{q.question}}</label>
                 {% if q.is_noun %}
                     <input 
@@ -74,5 +72,6 @@
             </div>
         {% endif %}
     </form>
+    </div>
 
 {% endblock %}

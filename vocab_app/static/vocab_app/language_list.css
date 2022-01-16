@@ -12,6 +12,7 @@
     list-style-type: none;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 40px;
 }
 
@@ -32,4 +33,8 @@
     height: 180px;
     border-radius: 50%;
     background-color: #deffed;
+}
+
+.content > li > a.gray {
+    background-color: #eeeeee;
 }
