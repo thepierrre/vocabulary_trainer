@@ -1,0 +1,41 @@
+.content {
+    margin: 30px auto;
+}
+
+.form {
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px;
+}
+
+.form-container {
+    display: flex; 
+    gap: 8px; 
+    justify-content: space-between;
+    font-size: 20px;
+    font-family: Arial;
+}
+
+.list_title {
+    font-size: 30px;
+    font-family: Arial;
+}
+
+.correct {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
+
+.results {
+    display: flex; 
+    flex-direction: column;
+}
+
+.button {
+    padding: 5px;
+    background-color: rgb(46, 190, 159);
+    border: rgb(46, 190, 159);
+}

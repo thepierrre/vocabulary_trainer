@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title%}
-    This List Title
+{% block title %}
+    {{ list_title }}
 {% endblock %}
 
 {% block css_files %}
+    <link rel="stylesheet" href="{% static "vocab_app/vocabulary_list.css" %}"
 {% endblock %}
 
 {% block content %}
-    <div style="margin: 0 auto">
-    <h1>{{list_title}}</h1>
-    <form action="" method="post" style="display: flex; flex-direction: column; gap: 8px;">
+    <div class="content">
+    <h1 class="list_title" >{{list_title}}</h1>
+    <form class="form" action="" method="post">
         {% csrf_token %}
         {% for q in questions %}
-            <div style="display: flex; gap: 5px; justify-content: space-between;">
+            <div class="form-container">
                 <label for="{{q.question}}">{{q.question}}</label>
                 {% if q.is_noun %}
                     <input 
@@ -48,24 +49,29 @@
                     >
                     <label for="{{q.question}}_das">das</label>
                 {% endif %}
-                <input 
-                    id="{{q.question}}" 
-                    type="text" 
-                    name="{{q.question}}" 
-                    value="{{q.user_answer|default_if_none:""}}"
-                >
-                {% if q.correct != None %}
-                    {% if q.correct %}
-                        <span style="color: green">Correct!</span>
-                    {% else %}
-                        <span style="color: red">{{q.article}} {{q.answer}}</span>
+                <div>
+                    <input 
+                        id="{{q.question}}" 
+                        type="text" 
+                        name="{{q.question}}" 
+                        value="{{q.user_answer|default_if_none:""}}"
+                    >
+                    {% if q.correct != None %}
+                        {% if q.correct %}
+                            <span class="correct">Correct!</span>
+                        {% elif q.is_noun %}
+                            <span class="wrong">{{q.article}} {{q.answer}}</span>
+                        {% else %}
+                            <span class="wrong">{{q.answer}}</span>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </div>
-        {% endfor %}
-        <input type="submit" value="Check answers">
+                </div>
+                </div>
+            {% endfor %}
+            <input class="button" type="submit" value="Check answers">
+            
         {% if result %}
-            <div style="display: flex; flex-direction: column">
+            <div class="results">
                 <h2>Results</h2>
                 <span>Correct: {{ result.correct }}/{{ questions|length }}</span>
                 <span>Percentage: {{ result.percentage }}%</span>

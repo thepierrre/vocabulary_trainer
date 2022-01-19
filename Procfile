@@ -1,0 +1,1 @@
+web: gunicorn vocabulary_trainer.wsgi --log-file -
