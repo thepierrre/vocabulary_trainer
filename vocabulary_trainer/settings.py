@@ -83,10 +83,11 @@ WSGI_APPLICATION = 'vocabulary_trainer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Vocabulary_Trainer',
-        'USER': 'Piotr',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        # intentionally empty
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '', # intentionally empty
+        'HOST': '',
         'PORT': '5432',
     }
 }
